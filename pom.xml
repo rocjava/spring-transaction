@@ -12,7 +12,19 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.3.11.RELEASE</version>
+            <version>4.3.12.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>4.3.12.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.3.12.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -22,11 +34,46 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>4.3.11.RELEASE</version>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.5.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.3.12.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.9</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -42,6 +89,53 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.gtown.plugin</groupId>
+                <artifactId>codegen-maven-plugin</artifactId>
+                <version>2.0-SNAPSHOT</version>
+                <configuration>
+                    <author>${user.name}</author>
+                    <basePackage>com.penn.spring</basePackage>
+                    <module>transaction</module>
+                    <dubboServiceBean>false</dubboServiceBean>
+                    <!--
+                    <outputDirectory>生成代码目录, 默认 ${basedir}/target/codegen</outputDirectory>
+                    <moduleName>微服务模块名,默认 ${pom.parent.artifactId}</moduleName>
+                    <include>需要包含的表名，允许正则表达式（与exclude二选一配置）</include>
+                     -->
+                    <include>t_order</include>
+                    <!--                    <exclude>flyway_schema_history</exclude>-->
+<!--                    <logicDeleteField>is_del</logicDeleteField>-->
+                    <jdbcUrl>xx.xx.xx.xx/xx</jdbcUrl>
+                    <jdbcUsername>xx</jdbcUsername>
+                    <jdbcPassword>xx</jdbcPassword>
+                    <!--
+                        需要生成的类
+                        entity
+                        controller
+                        service
+                        serviceImpl
+                        mapper
+                    -->
+                    <packages>
+                        <param>dto</param>
+                        <param>entity</param>
+                        <param>service</param>
+                        <param>serviceImpl</param>
+                        <param>mapper</param>
+                        <param>xml</param>
+                    </packages>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
