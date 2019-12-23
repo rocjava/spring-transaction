@@ -19,7 +19,7 @@ public interface ISpringTransactionService {
     /**
      * Propagation.MANDATORY
      */
-    void transactionMandatory();
+    void transactionMandatory() throws Exception;
 
     /**
      * Propagation.REQUIRES_NEW

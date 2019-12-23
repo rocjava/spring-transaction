@@ -5,6 +5,8 @@ import com.penn.spring.transaction.mapper.TUserMapper;
 import com.penn.spring.transaction.entity.TUser;
 import com.penn.spring.transaction.service.ITUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *  服务实现类
@@ -43,9 +45,10 @@ public class TUserServiceImpl implements ITUserService {
      * @return 主键
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long save(TUser entity) throws Exception {
         tUserMapper.insert(entity);
-        throw new Exception("C Exception");
+        return entity.getId();
     }
 
 }

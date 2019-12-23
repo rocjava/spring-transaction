@@ -27,4 +27,9 @@ public class TestSpringTransaction {
     public void testSupports() throws Exception {
         iSpringTransactionService.transactionSupports();
     }
+
+    @Test
+    public void testMandatory() throws Exception {
+        iSpringTransactionService.transactionMandatory();
+    }
 }

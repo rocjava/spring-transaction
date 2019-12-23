@@ -39,7 +39,10 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
     }
 
     /**
-     * 如果User有异常，
+     * 如果Order或User有事务，则添加事务，如果没有事务，那就没事务。
+     * 所以，如果User没有事务，即使抛出异常，仍然有两条数据；
+     * 反之，如果User有事务，则抛出异常后，User回滚，但是Order会保存。
+     * 这个例子上，Order和User都没有事务，所有抛出异常后，数据都会保存。
      * @throws Exception
      */
     @Override
@@ -50,8 +53,10 @@ public class SpringTransactionServiceImpl implements ISpringTransactionService {
     }
 
     @Override
-    public void transactionMandatory() {
-
+    @Transactional(propagation = Propagation.MANDATORY, rollbackFor = Exception.class)
+    public void transactionMandatory() throws Exception {
+        itOrderService.save(getOrder());
+        itUserService.save(getUser());
     }
 
     @Override

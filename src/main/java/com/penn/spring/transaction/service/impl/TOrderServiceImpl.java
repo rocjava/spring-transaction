@@ -5,6 +5,7 @@ import com.penn.spring.transaction.mapper.TOrderMapper;
 import com.penn.spring.transaction.service.ITOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *  服务实现类
@@ -42,6 +43,7 @@ public class TOrderServiceImpl implements ITOrderService {
      * @return 主键
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long save(TOrder entity) {
         tOrderMapper.insert(entity);
         return entity.getId();
